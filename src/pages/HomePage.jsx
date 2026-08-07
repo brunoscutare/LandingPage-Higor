@@ -1,86 +1,254 @@
-function Section({ id, eyebrow, title, text, className = '' }) {
+import heroPhoto from '../assets/IMG_2681.PNG'
+import profilePhoto from '../assets/IMG_4126.PNG'
+import DesignSwitcher from '../components/DesignSwitcher.jsx'
+import Footer from '../components/Footer.jsx'
+import FontSwitcher from '../components/FontSwitcher.jsx'
+import ThemeSwitcher from '../components/ThemeSwitcher.jsx'
+import WhatsAppButton from '../components/WhatsAppButton.jsx'
+import { DESIGN_STYLES } from '../constants/designs.js'
+import {
+  CRP,
+  FAQ_ITEMS,
+  HOW_IT_WORKS_STEPS,
+  PRACTICAL_CHANGES,
+  PROFESSIONAL_NAME,
+  RECOGNITION_QUOTES,
+  WHAT_WONT_HAPPEN,
+} from '../constants/site.js'
+import { useDesign } from '../context/DesignContext.jsx'
+
+function SectionShell({ id, children, className = '', sectionClass }) {
   return (
-    <section id={id} className={`mx-auto w-full max-w-6xl border-t border-white/10 py-24 ${className}`}>
-      <p className="text-sm uppercase tracking-[0.35em] text-[#E8C39A]">{eyebrow}</p>
-      <h2 className="mt-4 text-3xl font-semibold leading-tight md:text-5xl">{title}</h2>
-      <p className="mt-6 max-w-3xl text-base leading-8 text-white/78">{text}</p>
+    <section id={id} className={`${sectionClass} ${className}`}>
+      {children}
     </section>
   )
 }
 
 function HomePage() {
+  const { design } = useDesign()
+  const s = DESIGN_STYLES[design]
+
   return (
-    <main className="min-h-screen px-6 pt-28 text-white">
-      <section id="hero" className="mx-auto flex min-h-[70vh] w-full max-w-6xl items-center justify-center text-center">
-        <div>
-          <p className="text-sm uppercase tracking-[0.4em] text-[#E8C39A]">Hero</p>
-          <h1 className="mt-4 text-5xl font-semibold leading-tight md:text-7xl">Uma landing para apresentar seu trabalho com clareza.</h1>
+    <main className={s.main}>
+      <section id="hero" className={s.hero}>
+        <div className={s.heroText}>
+          <h1 className={s.heroTitle}>
+            <span className="block">Quando a dor começa a decidir o que você faz,</span>
+            <span className={s.heroSubtitle}>ela deixou de ser só uma questão do corpo.</span>
+          </h1>
+
+          <p className={s.heroLead}>
+            Atendimento psicológico para pessoas que convivem com dor persistente. Presencial em Araraquara ou online.
+          </p>
+
+          <div className={s.heroCta}>
+            <WhatsAppButton>Conversar comigo pelo WhatsApp</WhatsAppButton>
+            <p className="max-w-md text-sm leading-7 text-white/58">
+              Quem responde é o próprio psicólogo, no mesmo dia. Você não passa por secretaria nem por fila de triagem.
+            </p>
+          </div>
+        </div>
+
+        <div className={s.heroMedia}>
+          <figure className={`${design === 'editorial' ? 'w-full max-w-md' : 'min-w-0 flex-1'}`}>
+            <div className={s.photoWrap}>
+              <img src={heroPhoto} alt={`${PROFESSIONAL_NAME}, psicólogo`} className={s.photo} />
+            </div>
+            <figcaption className={s.caption}>
+              {PROFESSIONAL_NAME}, psicólogo, {CRP}
+            </figcaption>
+          </figure>
+
+          <div className="mt-3 flex shrink-0 flex-col gap-6">
+            <ThemeSwitcher />
+            <FontSwitcher />
+            <DesignSwitcher />
+          </div>
         </div>
       </section>
 
-      <Section
-        id="bloco-de-reconhecimento"
-        eyebrow="Bloco de Reconhecimento"
-        title="Aqui entra a abertura que faz a pessoa se reconhecer no problema."
-        text="Esse bloco deve mostrar que você entende a dor, o contexto e o motivo que trouxe a pessoa até a página."
-      />
+      <SectionShell id="bloco-de-reconhecimento" sectionClass={s.section}>
+        <h2 className={`${s.heading} ${s.headingWrap}`}>Se alguma dessas frases parece sua</h2>
 
-      <Section
-        id="psicologia-e-dor"
-        eyebrow="Como a Psicologia entra no tratamento da dor"
-        title="Explicação objetiva de como o atendimento conversa com a dor."
-        text="Aqui vale colocar a lógica clínica do trabalho, sem prometer milagre e sem linguagem vaga."
-      />
+        <ul className={s.quoteGrid}>
+          {RECOGNITION_QUOTES.map((quote) => (
+            <li key={quote} className={s.quoteItem}>
+              “{quote}”
+            </li>
+          ))}
+        </ul>
 
-      <Section
-        id="como-funciona"
-        eyebrow="Como funciona o atendimento"
-        title="Passo a passo simples do processo."
-        text="Essa área pode explicar primeira conversa, acompanhamento, frequência e o que acontece ao longo do processo."
-      />
+        <div className={`mt-10 space-y-6 ${s.body} ${design === 'editorial' ? 'max-w-2xl mx-auto text-left' : 'max-w-3xl'}`}>
+          <p>
+            A última costuma ser a que mais dói e a que menos aparece nas consultas. Você começa a recusar convites porque
+            não sabe como vai estar no dia. Vira a pessoa que sempre desmarca. Passa a evitar contar como está para não
+            repetir sempre o mesmo assunto. E, aos poucos, sua vida vai ficando do tamanho dos seus dias bons.
+          </p>
+          <p>
+            Isso não é fraqueza nem drama. É o que a dor persistente faz com a rotina, com os planos e com o jeito de se ver.
+          </p>
+        </div>
+      </SectionShell>
 
-      <Section
-        id="equipe"
-        eyebrow="Trabalho junto da equipe"
-        title="Mostrar integração com outros profissionais."
-        text="Se o atendimento conversa com médico, fisio, nutri ou outros profissionais, isso entra aqui."
-      />
+      <SectionShell id="psicologia-e-dor" sectionClass={s.section}>
+        <h2 className={`${s.heading} ${s.headingWrap}`}>Por que um psicólogo no tratamento da dor</h2>
 
-      <Section
-        id="formatos"
-        eyebrow="Formatos"
-        title="Presencial, online ou os formatos que você oferece."
-        text="Esse bloco organiza as opções de atendimento e ajuda a pessoa a entender como dá para começar."
-      />
+        <div className={`mt-8 space-y-6 ${s.body} ${design === 'editorial' ? 'max-w-2xl mx-auto text-left' : 'max-w-3xl'}`}>
+          <p>
+            A dor não é produzida no lugar onde você a sente. Ela é produzida pelo sistema nervoso, que decide o tempo todo o
+            quanto aquele sinal importa. E essa decisão sofre influência de sono, medo, atenção, expectativa, histórico e do
+            que aquele movimento significou para você antes.
+          </p>
+          <p>
+            Nada disso quer dizer que a dor é imaginada. Quer dizer que existem partes do quadro que remédio e fisioterapia
+            não alcançam sozinhos, porque não são partes do tecido: são o medo de piorar, a desconfiança no próprio corpo, o
+            abandono das atividades que sustentavam sua rotina, a sensação de ter perdido quem você era.
+          </p>
+          <p>É nessa parte que eu trabalho, junto do restante do tratamento.</p>
+        </div>
 
-      <Section
-        id="quem-sou"
-        eyebrow="Quem sou"
-        title="Apresentação profissional direta."
-        text="Aqui entra sua formação, experiência e por que você trabalha com esse tema."
-      />
+        <h3 className={`mt-14 text-2xl font-medium text-[var(--color-accent)] ${design === 'editorial' ? 'text-center' : ''}`}>
+          Em que isso muda na prática
+        </h3>
 
-      <Section
-        id="nao-acontece"
-        eyebrow="O que não vai acontecer aqui"
-        title="Deixar claro o que o processo não é."
-        text="Esse bloco ajuda a alinhar expectativa e dar segurança para quem está lendo."
-      />
+        <ul className={s.practicalGrid}>
+          {PRACTICAL_CHANGES.map((item) => (
+            <li key={item} className={s.practicalItem}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </SectionShell>
 
-      <Section
-        id="perguntas-frequentes"
-        eyebrow="Perguntas frequentes"
-        title="Responder dúvidas que travam a decisão."
-        text="Pode incluir preço, duração, sigilo, duração do processo e dúvidas comuns antes de marcar."
-      />
+      <SectionShell id="como-funciona" sectionClass={s.section}>
+        <h2 className={s.heading}>Como funciona</h2>
 
-      <Section
-        id="fechamento"
-        eyebrow="Fechamento"
-        title="Chamada final para agendar ou entrar em contato."
-        text="Feche a página com um convite claro para o próximo passo."
-        className="pb-32"
-      />
+        <ol className={s.stepList}>
+          {HOW_IT_WORKS_STEPS.map((step, index) => (
+            <li key={step.title} className={`grid gap-4 ${design === 'cards' ? 'rounded-xl border border-white/8 bg-white/[0.03] p-5 md:grid-cols-[3rem_1fr]' : 'md:grid-cols-[3rem_1fr]'}`}>
+              <span className="text-sm font-medium uppercase tracking-[0.25em] text-[var(--color-accent)]">{index + 1}.</span>
+              <div>
+                <h3 className="text-xl font-medium leading-8 text-white">{step.title}</h3>
+                <p className={`mt-3 ${s.body} ${design === 'editorial' ? 'max-w-2xl' : 'max-w-3xl'}`}>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <p className={`mt-12 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
+          Alguns tratamentos são planejados com tempo definido, dentro de um plano combinado desde o início. Outros ficam
+          abertos, e a gente avalia junto ao longo do caminho. Isso se decide na primeira conversa, com você sabendo o que
+          está sendo combinado.
+        </p>
+      </SectionShell>
+
+      <SectionShell id="equipe" sectionClass={s.section}>
+        <h2 className={`${s.heading} ${s.headingWrap}`}>Você não precisa recontar sua história em cada sala</h2>
+
+        <div className={`mt-8 space-y-6 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
+          <p>
+            Atendo em uma clínica especializada em tratamento de dor, com equipe multidisciplinar. Quando compartilho
+            pacientes com os outros profissionais, o tratamento conversa entre si: o que aparece na sessão pode ser
+            considerado nas outras condutas, e o contrário também.
+          </p>
+          <p>
+            Para quem já passou anos sendo encaminhado de um especialista para outro, repetindo a mesma história do zero,
+            essa diferença aparece rápido.
+          </p>
+        </div>
+      </SectionShell>
+
+      <SectionShell id="formatos" sectionClass={s.section}>
+        <h2 className={s.heading}>Onde acontecem as sessões</h2>
+
+        <ul className={`mt-10 space-y-4 ${design === 'editorial' ? 'mx-auto max-w-md text-left' : ''}`}>
+          <li className="text-xl leading-8 text-white/90">Presencial em Araraquara.</li>
+          <li className="text-xl leading-8 text-white/90">Online, de onde você estiver.</li>
+          <li className="text-base leading-8 text-white/45">
+            E existe a possibilidade de atendimento no seu domicílio, em situações que justifiquem.
+          </li>
+        </ul>
+      </SectionShell>
+
+      <SectionShell id="quem-sou" sectionClass={s.section}>
+        <div className={s.quemSouGrid}>
+          <figure className={`mx-auto w-full max-w-sm ${design === 'editorial' ? '' : 'md:max-w-none'}`}>
+            <div className={s.profileFrame}>
+              <img
+                src={profilePhoto}
+                alt={`${PROFESSIONAL_NAME} em contexto de trabalho`}
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+          </figure>
+
+          <div className={design === 'editorial' ? 'max-w-2xl text-left' : ''}>
+            <h2 className={`${s.heading} ${design === 'editorial' ? 'text-left' : ''}`}>{PROFESSIONAL_NAME}</h2>
+
+            <div className={`mt-8 space-y-6 ${s.body}`}>
+              <p>
+                Sou psicólogo, {CRP}. Minha formação é em psicologia existencial, com especialização em Tanatologia, e hoje
+                curso psicologia psicossomática. Atendo em uma clínica especializada em tratamento de dor, e também atendo
+                pessoas em luto e em outros sofrimentos.
+              </p>
+              <p>
+                O que essas formações têm em comum é o assunto: o que acontece com uma pessoa quando o corpo deixa de ser
+                previsível, quando existe perda, quando a vida precisa ser reorganizada sem que você tenha escolhido isso.
+              </p>
+              <p>
+                Não trabalho com fórmula, e não tenho pressa de te oferecer conclusão. Trabalho para que a dor seja
+                compreendida e respeitada, e para que ela pare de ser quem manda.
+              </p>
+            </div>
+          </div>
+        </div>
+      </SectionShell>
+
+      <SectionShell id="nao-acontece" sectionClass={s.section}>
+        <h2 className={s.heading}>O que não vai acontecer aqui</h2>
+
+        <ul className={`mt-10 space-y-5 ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : design === 'minimal' ? 'max-w-2xl' : 'max-w-3xl'} ${design === 'cards' ? 'space-y-4' : ''}`}>
+          {WHAT_WONT_HAPPEN.map((item) => (
+            <li key={item} className={s.denyItem}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </SectionShell>
+
+      <SectionShell id="perguntas-frequentes" sectionClass={s.section}>
+        <h2 className={s.heading}>Perguntas frequentes</h2>
+
+        <dl className={`mt-12 ${design === 'cards' ? 'space-y-4' : 'space-y-10'}`}>
+          {FAQ_ITEMS.map((item) => (
+            <div key={item.question} className={s.faqItem}>
+              <dt className="text-lg font-medium leading-8 text-white">{item.question}</dt>
+              <dd className={`mt-3 ${s.body}`}>{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </SectionShell>
+
+      <SectionShell id="fechamento" sectionClass={s.section} className={s.closing}>
+        <h2 className={`${s.heading} ${s.headingWrap}`}>
+          Se você chegou até aqui, a dor já tomou espaço demais
+        </h2>
+
+        <p className={`mt-8 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
+          Você não precisa decidir nada hoje sobre tratamento. Só me contar o que está acontecendo e eu te digo com
+          sinceridade se posso ajudar.
+        </p>
+
+        <div className={`mt-10 flex flex-col gap-4 ${design === 'editorial' ? 'items-center' : 'items-start'}`}>
+          <WhatsAppButton>Me contar meu caso pelo WhatsApp</WhatsAppButton>
+          <p className="max-w-md text-sm leading-7 text-white/58">
+            Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.
+          </p>
+        </div>
+      </SectionShell>
+
+      <Footer />
     </main>
   )
 }
