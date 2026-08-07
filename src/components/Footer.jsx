@@ -2,7 +2,7 @@ import { CRP, INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE_DISPLAY, PROFESSIONAL_NAME,
 
 function Footer() {
   return (
-    <footer id="rodape" className="border-t border-white/10 bg-[var(--color-footer)] transition-[background] duration-400">
+    <footer id="rodape" className="section-tone-brown border-t border-white/10">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-12 text-sm leading-7 text-white/65">
         <p>
           {PROFESSIONAL_NAME}, psicólogo, {CRP} · Araraquara, SP. Atendimento presencial e online.

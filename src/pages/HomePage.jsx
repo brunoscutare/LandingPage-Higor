@@ -1,11 +1,9 @@
 import heroPhoto from '../assets/IMG_2681.PNG'
 import profilePhoto from '../assets/IMG_4126.PNG'
-import DesignSwitcher from '../components/DesignSwitcher.jsx'
 import Footer from '../components/Footer.jsx'
-import FontSwitcher from '../components/FontSwitcher.jsx'
-import ThemeSwitcher from '../components/ThemeSwitcher.jsx'
+import SectionMark from '../components/SectionMark.jsx'
 import WhatsAppButton from '../components/WhatsAppButton.jsx'
-import { DESIGN_STYLES } from '../constants/designs.js'
+import { DESIGN_STYLES as s } from '../constants/designs.js'
 import {
   CRP,
   FAQ_ITEMS,
@@ -15,73 +13,70 @@ import {
   RECOGNITION_QUOTES,
   WHAT_WONT_HAPPEN,
 } from '../constants/site.js'
-import { useDesign } from '../context/DesignContext.jsx'
 
-function SectionShell({ id, children, className = '', sectionClass }) {
+function SectionShell({ id, children, className = '', sectionClass, mark, tone = 'green' }) {
   return (
-    <section id={id} className={`${sectionClass} ${className}`}>
-      {children}
+    <section id={id} className={`${sectionClass} section-tone-${tone} ${className}`}>
+      <div className={s.sectionInner}>
+        {children}
+        {mark ? <SectionMark name={mark} /> : null}
+      </div>
     </section>
   )
 }
 
 function HomePage() {
-  const { design } = useDesign()
-  const s = DESIGN_STYLES[design]
-
   return (
     <main className={s.main}>
       <section id="hero" className={s.hero}>
-        <div className={s.heroText}>
-          <h1 className={s.heroTitle}>
-            <span className="block">Quando a dor começa a decidir o que você faz,</span>
-            <span className={s.heroSubtitle}>ela deixou de ser só uma questão do corpo.</span>
-          </h1>
+        <div className={s.heroInner}>
+          <div className={s.heroText}>
+            <h1 className={s.heroTitle}>
+              <span className="block">Quando a dor começa a decidir o que você faz,</span>
+              <span className={s.heroSubtitle}>ela deixou de ser só uma questão do corpo.</span>
+            </h1>
 
-          <p className={s.heroLead}>
-            Atendimento psicológico para pessoas que convivem com dor persistente. Presencial em Araraquara ou online.
-          </p>
-
-          <div className={s.heroCta}>
-            <WhatsAppButton>Conversar comigo pelo WhatsApp</WhatsAppButton>
-            <p className="max-w-md text-sm leading-7 text-white/58">
-              Quem responde é o próprio psicólogo, no mesmo dia. Você não passa por secretaria nem por fila de triagem.
+            <p className={s.heroLead}>
+              Atendimento psicológico para pessoas que convivem com dor persistente. Presencial em Araraquara ou online.
             </p>
-          </div>
-        </div>
 
-        <div className={s.heroMedia}>
-          <figure className={`${design === 'editorial' ? 'w-full max-w-md' : 'min-w-0 flex-1'}`}>
-            <div className={`group ${s.photoWrap}`}>
-              <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-                <img src={heroPhoto} alt={`${PROFESSIONAL_NAME}, psicólogo`} className={s.photo} />
-              </div>
+            <div className={s.heroCta}>
+              <WhatsAppButton>Conversar comigo pelo WhatsApp</WhatsAppButton>
+              <p className="max-w-md text-sm leading-7 text-white/58">
+                Quem responde é o próprio psicólogo, no mesmo dia. Você não passa por secretaria nem por fila de triagem.
+              </p>
             </div>
-            <figcaption className={s.caption}>
-              {PROFESSIONAL_NAME}, psicólogo, {CRP}
-            </figcaption>
-          </figure>
-
-          <div className="mt-3 flex shrink-0 flex-col gap-6">
-            <ThemeSwitcher />
-            <FontSwitcher />
-            <DesignSwitcher />
           </div>
+
+          <div className={s.heroMedia}>
+            <figure className="min-w-0">
+              <div className={`group ${s.photoWrap}`}>
+                <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                  <img src={heroPhoto} alt={`${PROFESSIONAL_NAME}, psicólogo`} className={s.photo} />
+                </div>
+              </div>
+              <figcaption className={s.caption}>
+                {PROFESSIONAL_NAME}, psicólogo, {CRP}
+              </figcaption>
+            </figure>
+          </div>
+
+          <SectionMark name="psi" />
         </div>
       </section>
 
-      <SectionShell id="bloco-de-reconhecimento" sectionClass={s.section}>
+      <SectionShell id="bloco-de-reconhecimento" sectionClass={s.section} mark="head" tone="brown">
         <h2 className={`${s.heading} ${s.headingWrap}`}>Se alguma dessas frases parece sua</h2>
 
         <ul className={s.quoteGrid}>
           {RECOGNITION_QUOTES.map((quote) => (
-            <li key={quote} className={`${s.quoteItem} ${s.phraseHover}`}>
+            <li key={quote} className={`${s.quoteItem} ${s.quoteHover}`}>
               “{quote}”
             </li>
           ))}
         </ul>
 
-        <div className={`mt-10 space-y-6 ${s.body} ${design === 'editorial' ? 'max-w-2xl mx-auto text-left' : 'max-w-3xl'}`}>
+        <div className={`mt-10 max-w-3xl space-y-6 ${s.body}`}>
           <p>
             A última costuma ser a que mais dói e a que menos aparece nas consultas. Você começa a recusar convites porque
             não sabe como vai estar no dia. Vira a pessoa que sempre desmarca. Passa a evitar contar como está para não
@@ -93,10 +88,10 @@ function HomePage() {
         </div>
       </SectionShell>
 
-      <SectionShell id="psicologia-e-dor" sectionClass={s.section}>
-        <h2 className={`${s.heading} ${s.headingWrap}`}>Por que um psicólogo no tratamento da dor</h2>
+      <SectionShell id="psicologia-e-dor" sectionClass={s.section} mark="brain" tone="green">
+        <h2 className={`${s.heading} ${s.headingWrap}`}>Por que um psicólogo no tratamento da dor?</h2>
 
-        <div className={`mt-8 space-y-6 ${s.body} ${design === 'editorial' ? 'max-w-2xl mx-auto text-left' : 'max-w-3xl'}`}>
+        <div className={`mt-8 max-w-3xl space-y-6 ${s.body}`}>
           <p>
             A dor não é produzida no lugar onde você a sente. Ela é produzida pelo sistema nervoso, que decide o tempo todo o
             quanto aquele sinal importa. E essa decisão sofre influência de sono, medo, atenção, expectativa, histórico e do
@@ -110,72 +105,42 @@ function HomePage() {
           <p>É nessa parte que eu trabalho, junto do restante do tratamento.</p>
         </div>
 
-        <h3 className={`mt-14 text-2xl font-medium text-[var(--color-accent)] ${design === 'editorial' ? 'text-center' : ''}`}>
-          Em que isso muda na prática
-        </h3>
+        <h3 className="mt-14 text-2xl font-medium text-[var(--color-accent)]">Em que isso muda na prática</h3>
 
         <ul className={s.practicalGrid}>
           {PRACTICAL_CHANGES.map((item) => (
-            <li key={item} className={`${s.practicalItem} ${design === 'cards' ? s.phraseHover : ''}`}>
+            <li key={item} className={`${s.practicalItem} ${s.lineHover}`}>
               {item}
             </li>
           ))}
         </ul>
       </SectionShell>
 
-      <SectionShell id="como-funciona" sectionClass={s.section}>
-        <h2 className={s.heading}>Como funciona</h2>
+      <SectionShell id="como-funciona" sectionClass={s.section} mark="balance" tone="brown">
+        <h2 className={s.heading}>Como funciona?</h2>
 
         <ol className={s.stepList}>
           {HOW_IT_WORKS_STEPS.map((step, index) => (
-            <li key={step.title} className={`grid gap-4 md:grid-cols-[3rem_1fr] ${design === 'cards' ? `rounded-xl border border-white/8 bg-white/[0.03] p-5 ${s.phraseHover}` : ''}`}>
+            <li key={step.title} className={`${s.stepItem} ${s.quoteHover}`}>
               <span className="text-sm font-medium uppercase tracking-[0.25em] text-[var(--color-accent)]">{index + 1}.</span>
               <div>
                 <h3 className="text-xl font-medium leading-8 text-white">{step.title}</h3>
-                <p className={`mt-3 ${s.body} ${design === 'editorial' ? 'max-w-2xl' : 'max-w-3xl'}`}>{step.text}</p>
+                <p className={`mt-3 max-w-3xl ${s.body}`}>{step.text}</p>
               </div>
             </li>
           ))}
         </ol>
 
-        <p className={`mt-12 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
+        <p className={`mt-12 max-w-3xl ${s.body}`}>
           Alguns tratamentos são planejados com tempo definido, dentro de um plano combinado desde o início. Outros ficam
           abertos, e a gente avalia junto ao longo do caminho. Isso se decide na primeira conversa, com você sabendo o que
           está sendo combinado.
         </p>
       </SectionShell>
 
-      <SectionShell id="equipe" sectionClass={s.section}>
-        <h2 className={`${s.heading} ${s.headingWrap}`}>Você não precisa recontar sua história em cada sala</h2>
-
-        <div className={`mt-8 space-y-6 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
-          <p>
-            Atendo em uma clínica especializada em tratamento de dor, com equipe multidisciplinar. Quando compartilho
-            pacientes com os outros profissionais, o tratamento conversa entre si: o que aparece na sessão pode ser
-            considerado nas outras condutas, e o contrário também.
-          </p>
-          <p>
-            Para quem já passou anos sendo encaminhado de um especialista para outro, repetindo a mesma história do zero,
-            essa diferença aparece rápido.
-          </p>
-        </div>
-      </SectionShell>
-
-      <SectionShell id="formatos" sectionClass={s.section}>
-        <h2 className={s.heading}>Onde acontecem as sessões</h2>
-
-        <ul className={`mt-10 space-y-4 ${design === 'editorial' ? 'mx-auto max-w-md text-left' : ''}`}>
-          <li className="text-xl leading-8 text-white/90">Presencial em Araraquara.</li>
-          <li className="text-xl leading-8 text-white/90">Online, de onde você estiver.</li>
-          <li className="text-base leading-8 text-white/45">
-            E existe a possibilidade de atendimento no seu domicílio, em situações que justifiquem.
-          </li>
-        </ul>
-      </SectionShell>
-
-      <SectionShell id="quem-sou" sectionClass={s.section}>
+      <SectionShell id="quem-sou" sectionClass={s.section} mark="heartMind" tone="brown">
         <div className={s.quemSouGrid}>
-          <figure className={`mx-auto w-full max-w-sm ${design === 'editorial' ? '' : 'md:max-w-none'}`}>
+          <figure className="mx-auto w-full max-w-sm md:max-w-none">
             <div className={`group ${s.profileFrame}`}>
               <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
                 <img
@@ -187,8 +152,8 @@ function HomePage() {
             </div>
           </figure>
 
-          <div className={design === 'editorial' ? 'max-w-2xl text-left' : ''}>
-            <h2 className={`${s.heading} ${design === 'editorial' ? 'text-left' : ''}`}>{PROFESSIONAL_NAME}</h2>
+          <div>
+            <h2 className={s.heading}>{PROFESSIONAL_NAME}</h2>
 
             <div className={`mt-8 space-y-6 ${s.body}`}>
               <p>
@@ -209,24 +174,24 @@ function HomePage() {
         </div>
       </SectionShell>
 
-      <SectionShell id="nao-acontece" sectionClass={s.section}>
+      <SectionShell id="nao-acontece" sectionClass={s.section} mark="wave" tone="green">
         <h2 className={s.heading}>O que não vai acontecer aqui</h2>
 
-        <ul className={`mt-10 space-y-5 ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : design === 'minimal' ? 'max-w-2xl' : 'max-w-3xl'} ${design === 'cards' ? 'space-y-4' : ''}`}>
+        <ul className={`mt-10 max-w-3xl space-y-5`}>
           {WHAT_WONT_HAPPEN.map((item) => (
-            <li key={item} className={`${s.denyItem} ${design === 'cards' ? s.phraseHover : ''}`}>
+            <li key={item} className={`${s.denyItem} ${s.lineHover}`}>
               {item}
             </li>
           ))}
         </ul>
       </SectionShell>
 
-      <SectionShell id="perguntas-frequentes" sectionClass={s.section}>
+      <SectionShell id="perguntas-frequentes" sectionClass={s.section} mark="spark" tone="green">
         <h2 className={s.heading}>Perguntas frequentes</h2>
 
-        <dl className={`mt-12 ${design === 'cards' ? 'space-y-4' : 'space-y-10'}`}>
+        <dl className="mt-12 space-y-10">
           {FAQ_ITEMS.map((item) => (
-            <div key={item.question} className={`${s.faqItem} ${design === 'cards' ? s.phraseHover : ''}`}>
+            <div key={item.question} className={s.faqItem}>
               <dt className="text-lg font-medium leading-8 text-white">{item.question}</dt>
               <dd className={`mt-3 ${s.body}`}>{item.answer}</dd>
             </div>
@@ -234,17 +199,17 @@ function HomePage() {
         </dl>
       </SectionShell>
 
-      <SectionShell id="fechamento" sectionClass={s.section} className={s.closing}>
+      <SectionShell id="fechamento" sectionClass={s.section} className={s.closing} mark="psi" tone="brown">
         <h2 className={`${s.heading} ${s.headingWrap}`}>
           Se você chegou até aqui, a dor já tomou espaço demais
         </h2>
 
-        <p className={`mt-8 ${s.body} ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : 'max-w-3xl'}`}>
+        <p className={`mt-8 max-w-3xl ${s.body}`}>
           Você não precisa decidir nada hoje sobre tratamento. Só me contar o que está acontecendo e eu te digo com
           sinceridade se posso ajudar.
         </p>
 
-        <div className={`mt-10 flex flex-col gap-4 ${design === 'editorial' ? 'items-center' : 'items-start'}`}>
+        <div className="mt-10 flex flex-col items-start gap-4">
           <WhatsAppButton>Me contar seu caso pelo WhatsApp</WhatsAppButton>
           <p className="max-w-md text-sm leading-7 text-white/58">
             Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.

@@ -16,10 +16,10 @@ export const RECOGNITION_QUOTES = [
 ]
 
 export const PRACTICAL_CHANGES = [
-  'Você deixa de decidir sua semana pela previsão do que a dor vai fazer.',
-  'O corpo volta a ser algo em que você confia, dentro dos limites que existem.',
-  'Os dias ruins deixam de ser um começo de desespero e voltam a ser dias ruins.',
-  'Você consegue explicar para as pessoas em volta o que está acontecendo, e para você mesmo antes disso.',
+  'Você deixa de decidir sua semana pela previsão do que a dor vai fazer',
+  'O corpo volta a ser algo em que você confia, dentro dos limites que existem',
+  'Os dias ruins deixam de ser um começo de desespero e voltam a ser dias ruins',
+  'Você consegue explicar para as pessoas em volta o que está acontecendo, e para você mesmo antes disso',
 ]
 
 export const HOW_IT_WORKS_STEPS = [

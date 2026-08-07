@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { House, Brain, Activity, CalendarCheck, Users, LayoutGrid, CircleUserRound, ShieldAlert, HelpCircle } from 'lucide-react'
+import { House, Brain, Activity, CalendarCheck, CircleUserRound, ShieldAlert, HelpCircle } from 'lucide-react'
 
 const SCROLL_SPY_OFFSET = 96
 const SCROLL_SPY_TOLERANCE = 12
@@ -28,8 +28,6 @@ const MENUS = [
   { icon: Brain, text: 'Reconhecimento', sectionId: 'bloco-de-reconhecimento' },
   { icon: Activity, text: 'Tratamento da dor', sectionId: 'psicologia-e-dor' },
   { icon: CalendarCheck, text: 'Atendimento', sectionId: 'como-funciona' },
-  { icon: Users, text: 'Trabalho junto da equipe', sectionId: 'equipe' },
-  { icon: LayoutGrid, text: 'Formatos', sectionId: 'formatos' },
   { icon: CircleUserRound, text: 'Quem sou', sectionId: 'quem-sou' },
   { icon: ShieldAlert, text: 'O que não vai acontecer', sectionId: 'nao-acontece' },
   { icon: HelpCircle, text: 'FAQ', sectionId: 'perguntas-frequentes' },
@@ -88,12 +86,13 @@ function Topbar() {
     const measure = () => {
       if (!measureRef.current) return
 
-      const measured = measureRef.current.offsetWidth
+      const measured = Math.ceil(measureRef.current.getBoundingClientRect().width)
       const max = window.innerWidth - 24
       setOpenWidth(Math.min(measured, max))
     }
 
     measure()
+    document.fonts?.ready?.then(measure)
     window.addEventListener('resize', measure)
 
     return () => window.removeEventListener('resize', measure)
@@ -193,13 +192,13 @@ function Topbar() {
       <div
         ref={measureRef}
         aria-hidden
-        className="pointer-events-none invisible fixed left-0 top-0 flex h-16 items-center gap-1 px-3"
+        className="pointer-events-none invisible fixed left-0 top-0 flex h-16 w-max items-center gap-1 px-3"
       >
         {MENUS.map((item) => {
           const Icon = item.icon
 
           return (
-            <div key={item.text} className="flex flex-none items-center gap-2 rounded-full px-3 py-2">
+            <div key={item.text} className="flex w-max flex-none items-center gap-2 rounded-full px-3 py-2">
               <Icon size={20} />
               <span className="whitespace-nowrap text-sm font-medium">{item.text}</span>
             </div>
@@ -213,6 +212,7 @@ function Topbar() {
           onMouseLeave={() => setOpen(false)}
           style={{
             width: barWidth,
+            maxWidth: 'calc(100vw - 24px)',
             transition: `width ${DURATION_MS}ms ${EASE}`,
           }}
           className="relative flex h-16 items-center justify-start gap-1 overflow-hidden rounded-full border border-white/10 bg-[var(--color-topbar)] px-3 shadow-[0_18px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl will-change-[width] transition-[background] duration-400"
