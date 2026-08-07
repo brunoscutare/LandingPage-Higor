@@ -52,8 +52,10 @@ function HomePage() {
 
         <div className={s.heroMedia}>
           <figure className={`${design === 'editorial' ? 'w-full max-w-md' : 'min-w-0 flex-1'}`}>
-            <div className={s.photoWrap}>
-              <img src={heroPhoto} alt={`${PROFESSIONAL_NAME}, psicólogo`} className={s.photo} />
+            <div className={`group ${s.photoWrap}`}>
+              <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                <img src={heroPhoto} alt={`${PROFESSIONAL_NAME}, psicólogo`} className={s.photo} />
+              </div>
             </div>
             <figcaption className={s.caption}>
               {PROFESSIONAL_NAME}, psicólogo, {CRP}
@@ -73,7 +75,7 @@ function HomePage() {
 
         <ul className={s.quoteGrid}>
           {RECOGNITION_QUOTES.map((quote) => (
-            <li key={quote} className={s.quoteItem}>
+            <li key={quote} className={`${s.quoteItem} ${s.phraseHover}`}>
               “{quote}”
             </li>
           ))}
@@ -114,7 +116,7 @@ function HomePage() {
 
         <ul className={s.practicalGrid}>
           {PRACTICAL_CHANGES.map((item) => (
-            <li key={item} className={s.practicalItem}>
+            <li key={item} className={`${s.practicalItem} ${design === 'cards' ? s.phraseHover : ''}`}>
               {item}
             </li>
           ))}
@@ -126,7 +128,7 @@ function HomePage() {
 
         <ol className={s.stepList}>
           {HOW_IT_WORKS_STEPS.map((step, index) => (
-            <li key={step.title} className={`grid gap-4 ${design === 'cards' ? 'rounded-xl border border-white/8 bg-white/[0.03] p-5 md:grid-cols-[3rem_1fr]' : 'md:grid-cols-[3rem_1fr]'}`}>
+            <li key={step.title} className={`grid gap-4 md:grid-cols-[3rem_1fr] ${design === 'cards' ? `rounded-xl border border-white/8 bg-white/[0.03] p-5 ${s.phraseHover}` : ''}`}>
               <span className="text-sm font-medium uppercase tracking-[0.25em] text-[var(--color-accent)]">{index + 1}.</span>
               <div>
                 <h3 className="text-xl font-medium leading-8 text-white">{step.title}</h3>
@@ -174,12 +176,14 @@ function HomePage() {
       <SectionShell id="quem-sou" sectionClass={s.section}>
         <div className={s.quemSouGrid}>
           <figure className={`mx-auto w-full max-w-sm ${design === 'editorial' ? '' : 'md:max-w-none'}`}>
-            <div className={s.profileFrame}>
-              <img
-                src={profilePhoto}
-                alt={`${PROFESSIONAL_NAME} em contexto de trabalho`}
-                className="aspect-[4/5] w-full object-cover"
-              />
+            <div className={`group ${s.profileFrame}`}>
+              <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                <img
+                  src={profilePhoto}
+                  alt={`${PROFESSIONAL_NAME} em contexto de trabalho`}
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </div>
             </div>
           </figure>
 
@@ -210,7 +214,7 @@ function HomePage() {
 
         <ul className={`mt-10 space-y-5 ${design === 'editorial' ? 'mx-auto max-w-2xl text-left' : design === 'minimal' ? 'max-w-2xl' : 'max-w-3xl'} ${design === 'cards' ? 'space-y-4' : ''}`}>
           {WHAT_WONT_HAPPEN.map((item) => (
-            <li key={item} className={s.denyItem}>
+            <li key={item} className={`${s.denyItem} ${design === 'cards' ? s.phraseHover : ''}`}>
               {item}
             </li>
           ))}
@@ -222,7 +226,7 @@ function HomePage() {
 
         <dl className={`mt-12 ${design === 'cards' ? 'space-y-4' : 'space-y-10'}`}>
           {FAQ_ITEMS.map((item) => (
-            <div key={item.question} className={s.faqItem}>
+            <div key={item.question} className={`${s.faqItem} ${design === 'cards' ? s.phraseHover : ''}`}>
               <dt className="text-lg font-medium leading-8 text-white">{item.question}</dt>
               <dd className={`mt-3 ${s.body}`}>{item.answer}</dd>
             </div>
@@ -241,7 +245,7 @@ function HomePage() {
         </p>
 
         <div className={`mt-10 flex flex-col gap-4 ${design === 'editorial' ? 'items-center' : 'items-start'}`}>
-          <WhatsAppButton>Me contar meu caso pelo WhatsApp</WhatsAppButton>
+          <WhatsAppButton>Me contar seu caso pelo WhatsApp</WhatsAppButton>
           <p className="max-w-md text-sm leading-7 text-white/58">
             Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.
           </p>

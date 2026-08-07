@@ -3,8 +3,25 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { House, Brain, Activity, CalendarCheck, Users, LayoutGrid, CircleUserRound, ShieldAlert, HelpCircle } from 'lucide-react'
 
 const SCROLL_SPY_OFFSET = 96
+const SCROLL_SPY_TOLERANCE = 12
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 const DURATION_MS = 850
+
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId)
+  if (!element) return
+
+  const top = element.getBoundingClientRect().top + window.scrollY - SCROLL_SPY_OFFSET
+  window.scrollTo({ top, behavior: 'smooth' })
+}
+
+function isSectionScrollSettled(sectionId) {
+  const element = document.getElementById(sectionId)
+  if (!element) return true
+
+  const top = element.getBoundingClientRect().top
+  return Math.abs(top - SCROLL_SPY_OFFSET) <= SCROLL_SPY_TOLERANCE
+}
 
 const MENUS = [
   { icon: House, text: 'Hero', sectionId: 'hero' },
@@ -63,6 +80,7 @@ function Topbar() {
   const [openWidth, setOpenWidth] = useState(CLOSED_WIDTH)
   const [activeSection, setActiveSection] = useState('hero')
   const measureRef = useRef(null)
+  const pendingSectionRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -87,6 +105,17 @@ function Topbar() {
     let ticking = false
 
     const updateActiveSection = () => {
+      if (pendingSectionRef.current) {
+        setActiveSection(pendingSectionRef.current)
+
+        if (isSectionScrollSettled(pendingSectionRef.current)) {
+          pendingSectionRef.current = null
+        } else {
+          ticking = false
+          return
+        }
+      }
+
       const pageBottom = window.scrollY + window.innerHeight
       const scrollHeight = document.documentElement.scrollHeight
 
@@ -96,13 +125,14 @@ function Topbar() {
         return
       }
 
+      const activationLine = SCROLL_SPY_OFFSET + SCROLL_SPY_TOLERANCE
       let current = SECTION_IDS[0]
 
       for (const sectionId of SECTION_IDS) {
         const element = document.getElementById(sectionId)
         if (!element) continue
 
-        if (element.getBoundingClientRect().top <= SCROLL_SPY_OFFSET) {
+        if (element.getBoundingClientRect().top <= activationLine) {
           current = sectionId
         }
       }
@@ -138,17 +168,16 @@ function Topbar() {
 
   const handleMenuClick = (item) => {
     if (item.sectionId) {
+      pendingSectionRef.current = item.sectionId
       setActiveSection(item.sectionId)
 
       if (location.pathname !== '/home') {
         navigate('/home', { replace: false })
-        window.setTimeout(() => {
-          document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }, 0)
+        window.setTimeout(() => scrollToSection(item.sectionId), 0)
         return
       }
 
-      document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      scrollToSection(item.sectionId)
       return
     }
 
