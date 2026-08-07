@@ -44,7 +44,11 @@ function MenuButton({ item, open, isActive, onClick }) {
       type="button"
       title={item.text}
       onClick={onClick}
-      className={`relative z-10 flex flex-none items-center justify-center gap-2 rounded-full px-3 py-2 transition-colors duration-500 ease-out ${isActive
+      style={{
+        columnGap: open ? '0.5rem' : '0rem',
+        transition: `column-gap ${DURATION_MS}ms ${EASE}, background-color 500ms ease-out, color 500ms ease-out, box-shadow 500ms ease-out`,
+      }}
+      className={`relative z-10 flex flex-none items-center justify-center rounded-full px-3 py-2 ${isActive
         ? 'bg-[var(--color-accent-active-bg)] text-[var(--color-accent-light)] shadow-[0_0_0_1px_var(--color-accent-active-ring)]'
         : 'text-white hover:bg-white/5 hover:text-[var(--color-accent)]'
         }`}
@@ -76,19 +80,27 @@ function MenuButton({ item, open, isActive, onClick }) {
 function Topbar() {
   const [open, setOpen] = useState(false)
   const [openWidth, setOpenWidth] = useState(CLOSED_WIDTH)
+  const [closedWidth, setClosedWidth] = useState(CLOSED_WIDTH)
   const [activeSection, setActiveSection] = useState('hero')
   const measureRef = useRef(null)
+  const closedMeasureRef = useRef(null)
   const pendingSectionRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
 
   useLayoutEffect(() => {
     const measure = () => {
-      if (!measureRef.current) return
-
-      const measured = Math.ceil(measureRef.current.getBoundingClientRect().width)
       const max = window.innerWidth - 24
-      setOpenWidth(Math.min(measured, max))
+
+      if (measureRef.current) {
+        const measured = Math.ceil(measureRef.current.getBoundingClientRect().width)
+        setOpenWidth(Math.min(measured, max))
+      }
+
+      if (closedMeasureRef.current) {
+        const measured = Math.ceil(closedMeasureRef.current.getBoundingClientRect().width)
+        setClosedWidth(Math.min(measured, max))
+      }
     }
 
     measure()
@@ -185,7 +197,7 @@ function Topbar() {
     }
   }
 
-  const barWidth = open ? openWidth : CLOSED_WIDTH
+  const barWidth = open ? openWidth : closedWidth
 
   return (
     <>
@@ -201,6 +213,22 @@ function Topbar() {
             <div key={item.text} className="flex w-max flex-none items-center gap-2 rounded-full px-3 py-2">
               <Icon size={20} />
               <span className="whitespace-nowrap text-sm font-medium">{item.text}</span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div
+        ref={closedMeasureRef}
+        aria-hidden
+        className="pointer-events-none invisible fixed left-0 top-0 flex h-16 w-max items-center gap-1 px-3"
+      >
+        {MENUS.map((item) => {
+          const Icon = item.icon
+
+          return (
+            <div key={item.text} className="flex w-max flex-none items-center rounded-full px-3 py-2">
+              <Icon size={20} />
             </div>
           )
         })}

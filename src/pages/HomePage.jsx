@@ -1,6 +1,7 @@
 import heroPhoto from '../assets/IMG_2681.PNG'
 import profilePhoto from '../assets/IMG_4126.PNG'
 import Footer from '../components/Footer.jsx'
+import LocationCard from '../components/LocationCard.jsx'
 import SectionMark from '../components/SectionMark.jsx'
 import WhatsAppButton from '../components/WhatsAppButton.jsx'
 import { DESIGN_STYLES as s } from '../constants/designs.js'
@@ -200,20 +201,24 @@ function HomePage() {
       </SectionShell>
 
       <SectionShell id="fechamento" sectionClass={s.section} className={s.closing} mark="psi" tone="brown">
-        <h2 className={`${s.heading} ${s.headingWrap}`}>
-          Se você chegou até aqui, a dor já tomou espaço demais
-        </h2>
+        <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-stretch md:gap-16">
+          <div>
+            <h2 className={s.heading}>Se você chegou até aqui, a dor já tomou espaço demais</h2>
 
-        <p className={`mt-8 max-w-3xl ${s.body}`}>
-          Você não precisa decidir nada hoje sobre tratamento. Só me contar o que está acontecendo e eu te digo com
-          sinceridade se posso ajudar.
-        </p>
+            <p className={`mt-8 ${s.body}`}>
+              Você não precisa decidir nada hoje sobre tratamento. Só me contar o que está acontecendo e eu te digo com
+              sinceridade se posso ajudar.
+            </p>
 
-        <div className="mt-10 flex flex-col items-start gap-4">
-          <WhatsAppButton>Me contar seu caso pelo WhatsApp</WhatsAppButton>
-          <p className="max-w-md text-sm leading-7 text-white/58">
-            Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.
-          </p>
+            <div className="mt-10 flex flex-col items-start gap-4">
+              <WhatsAppButton>Me contar seu caso pelo WhatsApp</WhatsAppButton>
+              <p className="max-w-md text-sm leading-7 text-white/58">
+                Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.
+              </p>
+            </div>
+          </div>
+
+          <LocationCard />
         </div>
       </SectionShell>
 

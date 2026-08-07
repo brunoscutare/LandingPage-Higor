@@ -8,6 +8,12 @@ export const PHONE_DISPLAY = '(16) 99747-7753'
 export const INSTAGRAM_HANDLE = '@higorjoiosopsi'
 export const INSTAGRAM_URL = 'https://instagram.com/higorjoiosopsi'
 
+export const ADDRESS_STREET = 'R. Voluntários da Pátria, 2427'
+export const ADDRESS_DETAILS = 'Centro · Araraquara/SP · 14801-320'
+export const ADDRESS_QUERY = `${ADDRESS_STREET}, ${ADDRESS_DETAILS.replace(/ · /g, ', ')}`
+export const MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&output=embed`
+export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_QUERY)}`
+
 export const RECOGNITION_QUOTES = [
   'Já fiz todos os exames e não deu nada.',
   'Às vezes sinto que ninguém acredita em mim.',
