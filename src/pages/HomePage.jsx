@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import heroPhoto from '../assets/IMG_2681.PNG'
 import profilePhoto from '../assets/IMG_4126.PNG'
 import { Check, X } from 'lucide-react'
@@ -15,6 +16,49 @@ import {
   RECOGNITION_QUOTES,
   WHAT_WONT_HAPPEN,
 } from '../constants/site.js'
+
+function FaqItem({ question, answer, open, onToggle }) {
+  return (
+    <div className="group">
+      <dt>
+        <button type="button" aria-expanded={open} onClick={onToggle} className={s.faqTrigger}>
+          <span className={`${s.faqQuestion} ${open ? s.faqQuestionOpen : ''}`}>{question}</span>
+          <span className={`${s.faqToggle} ${open ? s.faqToggleOpen : ''}`} aria-hidden="true">
+            <span className={s.faqToggleBar} />
+            <span className={`${s.faqToggleBar} ${open ? 'rotate-0' : 'rotate-90'}`} />
+          </span>
+        </button>
+      </dt>
+      <dd className={`${s.faqAnswerWrap} ${open ? s.faqAnswerOpen : ''}`}>
+        <div className="min-h-0 overflow-hidden">
+          <div className={`${s.faqAnswer} ${open ? s.faqAnswerVisible : ''}`}>
+            {answer.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </dd>
+    </div>
+  )
+}
+
+function FaqList() {
+  const [openIndex, setOpenIndex] = useState(null)
+
+  return (
+    <dl className={s.faqList}>
+      {FAQ_ITEMS.map((item, index) => (
+        <FaqItem
+          key={item.question}
+          question={item.question}
+          answer={item.answer}
+          open={openIndex === index}
+          onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
+        />
+      ))}
+    </dl>
+  )
+}
 
 function SectionShell({ id, children, className = '', sectionClass, mark, tone = 'green' }) {
   return (
@@ -202,14 +246,7 @@ function HomePage() {
       <SectionShell id="perguntas-frequentes" sectionClass={s.section} mark="spark" tone="green">
         <h2 className={s.heading}>Perguntas frequentes</h2>
 
-        <dl className="mt-12 space-y-10">
-          {FAQ_ITEMS.map((item) => (
-            <div key={item.question} className={s.faqItem}>
-              <dt className="text-lg font-medium leading-8 text-white">{item.question}</dt>
-              <dd className={`mt-3 ${s.body}`}>{item.answer}</dd>
-            </div>
-          ))}
-        </dl>
+        <FaqList />
       </SectionShell>
 
       <SectionShell id="fechamento" sectionClass={s.section} className={s.closing} mark="psi" tone="brown">

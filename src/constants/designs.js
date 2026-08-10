@@ -32,7 +32,21 @@ export const DESIGN_STYLES = {
   denyMark: 'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20 bg-[var(--color-bg)] text-white/45 transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--color-accent)] group-hover:bg-[var(--color-accent)]/18 group-hover:text-[var(--color-accent-light)] group-hover:shadow-[0_0_16px_rgba(158,196,176,0.38)]',
   denyConnector: 'mt-2 w-px flex-1 min-h-8 bg-gradient-to-b from-[var(--color-accent-border-soft)] to-transparent transition-colors duration-300 group-hover:from-[var(--color-accent)]/70',
   denyText: 'text-base leading-8 text-white/78 transition-all duration-300 group-hover:text-white group-hover:translate-x-1',
-  faqItem: 'max-w-3xl border-b border-white/8 pb-10 last:border-b-0 last:pb-0',
+  faqList: 'mt-12 max-w-3xl divide-y divide-white/10 border-y border-white/10',
+  faqTrigger: 'flex w-full cursor-pointer items-start justify-between gap-5 py-6 text-left md:py-7',
+  faqQuestion:
+    'text-[1.05rem] font-medium leading-8 text-white/82 transition-colors duration-300 group-hover:text-white md:text-lg',
+  faqQuestionOpen: 'text-white',
+  faqToggle:
+    'relative mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/14 text-[var(--color-accent-light)] transition-all duration-300 group-hover:border-[var(--color-accent)]/50 group-hover:bg-[var(--color-accent)]/10',
+  faqToggleOpen:
+    'border-[var(--color-accent)]/65 bg-[var(--color-accent)]/16 shadow-[0_0_18px_rgba(158,196,176,0.22)]',
+  faqToggleBar: 'absolute h-px w-3 bg-current transition-transform duration-300 ease-out',
+  faqAnswerWrap: 'grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out',
+  faqAnswerOpen: 'grid-rows-[1fr]',
+  faqAnswer:
+    'max-w-2xl space-y-4 pb-7 pr-12 text-base leading-8 text-white/68 opacity-0 translate-y-1 transition-all duration-300 ease-out [&_p]:indent-8',
+  faqAnswerVisible: 'opacity-100 translate-y-0',
   closing: 'border-b border-white/10 pb-24',
   quemSouGrid: 'grid gap-12 md:grid-cols-[0.85fr_1.15fr] md:items-start',
   profileFrame: 'overflow-hidden rounded-[1.75rem] border border-white/10 bg-[var(--color-surface)]',

@@ -54,36 +54,44 @@ export const WHAT_WONT_HAPPEN = [
 export const FAQ_ITEMS = [
   {
     question: 'Psicólogo vai tirar minha dor?',
-    answer:
-      'Não é assim que funciona, e quem promete isso está te enganando. O que a psicologia trabalha é a relação entre você e a dor: o medo, a evitação, o sono, a rotina perdida, o que você acredita que o seu corpo aguenta. Isso interfere na intensidade do que você sente e muda bastante o tamanho que a dor ocupa no seu dia.',
+    answer: [
+      'Não é assim que funciona, e quem promete isso está te enganando.',
+      'O que a psicologia trabalha é a relação entre você e a dor: o medo, a evitação, o sono, a rotina perdida, o que você acredita que o seu corpo aguenta. Isso interfere na intensidade do que você sente e muda bastante o tamanho que a dor ocupa no seu dia.',
+    ],
   },
   {
     question: 'Já contei minha história mil vezes e nada mudou.',
-    answer:
-      'Provavelmente você contou em pedaços, em consultas de quinze minutos, para responder o que cada profissional precisava saber. Aqui a história inteira é o ponto de partida do trabalho, não uma introdução antes do assunto principal.',
+    answer: [
+      'Provavelmente você contou em pedaços, em consultas de quinze minutos, para responder o que cada profissional precisava saber.',
+      'Aqui a história inteira é o ponto de partida do trabalho, não uma introdução antes do assunto principal.',
+    ],
   },
   {
     question: 'Eu já faço tratamento médico. Isso não é uma coisa a mais para gastar?',
-    answer:
-      'É uma pergunta justa. A questão não é somar mais um tratamento, e sim atacar a parte do quadro que os outros não alcançam. Se depois da primeira conversa você achar que não é o seu caso, eu mesmo te digo, e ainda posso te indicar outro caminho.',
+    answer: [
+      'É uma pergunta justa. A questão não é somar mais um tratamento, e sim atacar a parte do quadro que os outros não alcançam.',
+      'Se depois da primeira conversa você achar que não é o seu caso, eu mesmo te digo, e ainda posso te indicar outro caminho.',
+    ],
   },
   {
     question: 'Preciso ter diagnóstico fechado?',
-    answer:
+    answer: [
       'Não. Muita gente chega justamente sem nome para o que sente, e isso costuma ser parte do sofrimento.',
+    ],
   },
   {
     question: 'Quanto tempo leva?',
-    answer:
-      'Depende do caso, e eu prefiro combinar isso com você em vez de dar um número aqui. Alguns tratamentos são planejados com tempo definido desde o começo. Outros ficam abertos e revisamos juntos.',
+    answer: [
+      'Depende do caso, e eu prefiro combinar isso com você em vez de dar um número aqui.',
+      'Alguns tratamentos são planejados com tempo definido desde o começo. Outros ficam abertos e revisamos juntos.',
+    ],
   },
   {
     question: 'Atende só quem tem dor?',
-    answer: 'Não. Atendo também pessoas em luto e em outros momentos difíceis.',
+    answer: ['Não. Atendo também pessoas em luto e em outros momentos difíceis.'],
   },
   {
     question: 'Como funciona o pagamento?',
-    answer:
-      'Atendimento particular, sem convênio. Os valores eu passo direto no WhatsApp.',
+    answer: ['Atendimento particular, sem convênio. Os valores eu passo direto no WhatsApp.'],
   },
 ]
