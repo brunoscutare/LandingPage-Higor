@@ -7,20 +7,19 @@ const SCROLL_SPY_TOLERANCE = 12
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 const DURATION_MS = 850
 
-function scrollToSection(sectionId) {
+function getSectionScrollTarget(sectionId) {
   const element = document.getElementById(sectionId)
-  if (!element) return
+  if (!element) return 0
 
-  const top = element.getBoundingClientRect().top + window.scrollY - SCROLL_SPY_OFFSET
-  window.scrollTo({ top, behavior: 'smooth' })
+  return Math.max(0, element.getBoundingClientRect().top + window.scrollY - SCROLL_SPY_OFFSET)
+}
+
+function scrollToSection(sectionId) {
+  window.scrollTo({ top: getSectionScrollTarget(sectionId), behavior: 'smooth' })
 }
 
 function isSectionScrollSettled(sectionId) {
-  const element = document.getElementById(sectionId)
-  if (!element) return true
-
-  const top = element.getBoundingClientRect().top
-  return Math.abs(top - SCROLL_SPY_OFFSET) <= SCROLL_SPY_TOLERANCE
+  return Math.abs(window.scrollY - getSectionScrollTarget(sectionId)) <= SCROLL_SPY_TOLERANCE
 }
 
 const MENUS = [
@@ -35,6 +34,11 @@ const MENUS = [
 
 const CLOSED_WIDTH = MENUS.length * 52 + 50
 const SECTION_IDS = MENUS.map((item) => item.sectionId)
+const EXPAND_MEDIA_QUERY = '(hover: hover) and (pointer: fine)'
+
+function canExpandTopbar() {
+  return typeof window !== 'undefined' && window.matchMedia(EXPAND_MEDIA_QUERY).matches
+}
 
 function MenuButton({ item, open, isActive, onClick }) {
   const Icon = item.icon
@@ -79,14 +83,37 @@ function MenuButton({ item, open, isActive, onClick }) {
 
 function Topbar() {
   const [open, setOpen] = useState(false)
+  const [canExpand, setCanExpand] = useState(canExpandTopbar)
   const [openWidth, setOpenWidth] = useState(CLOSED_WIDTH)
   const [closedWidth, setClosedWidth] = useState(CLOSED_WIDTH)
   const [activeSection, setActiveSection] = useState('hero')
   const measureRef = useRef(null)
   const closedMeasureRef = useRef(null)
   const pendingSectionRef = useRef(null)
+  const pendingClearTimeoutRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
+  const isExpanded = canExpand && open
+
+  const clearPendingSection = () => {
+    pendingSectionRef.current = null
+    if (pendingClearTimeoutRef.current !== null) {
+      window.clearTimeout(pendingClearTimeoutRef.current)
+      pendingClearTimeoutRef.current = null
+    }
+  }
+
+  useEffect(() => {
+    const media = window.matchMedia(EXPAND_MEDIA_QUERY)
+    const update = () => {
+      setCanExpand(media.matches)
+      if (!media.matches) setOpen(false)
+    }
+
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -120,7 +147,7 @@ function Topbar() {
         setActiveSection(pendingSectionRef.current)
 
         if (isSectionScrollSettled(pendingSectionRef.current)) {
-          pendingSectionRef.current = null
+          clearPendingSection()
         } else {
           ticking = false
           return
@@ -158,13 +185,26 @@ function Topbar() {
       requestAnimationFrame(updateActiveSection)
     }
 
+    const onUserScrollIntent = () => {
+      if (!pendingSectionRef.current) return
+      clearPendingSection()
+      onScroll()
+    }
+
     updateActiveSection()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
+    window.addEventListener('wheel', onUserScrollIntent, { passive: true })
+    window.addEventListener('touchstart', onUserScrollIntent, { passive: true })
+    window.addEventListener('keydown', onUserScrollIntent)
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+      window.removeEventListener('wheel', onUserScrollIntent)
+      window.removeEventListener('touchstart', onUserScrollIntent)
+      window.removeEventListener('keydown', onUserScrollIntent)
+      clearPendingSection()
     }
   }, [location.pathname])
 
@@ -182,13 +222,25 @@ function Topbar() {
       pendingSectionRef.current = item.sectionId
       setActiveSection(item.sectionId)
 
+      if (pendingClearTimeoutRef.current !== null) {
+        window.clearTimeout(pendingClearTimeoutRef.current)
+      }
+      pendingClearTimeoutRef.current = window.setTimeout(() => {
+        pendingSectionRef.current = null
+        pendingClearTimeoutRef.current = null
+      }, DURATION_MS + 200)
+
       if (location.pathname !== '/home') {
         navigate('/home', { replace: false })
-        window.setTimeout(() => scrollToSection(item.sectionId), 0)
+        window.setTimeout(() => {
+          scrollToSection(item.sectionId)
+          if (isSectionScrollSettled(item.sectionId)) clearPendingSection()
+        }, 0)
         return
       }
 
       scrollToSection(item.sectionId)
+      if (isSectionScrollSettled(item.sectionId)) clearPendingSection()
       return
     }
 
@@ -197,7 +249,7 @@ function Topbar() {
     }
   }
 
-  const barWidth = open ? openWidth : closedWidth
+  const barWidth = isExpanded ? openWidth : closedWidth
 
   return (
     <>
@@ -236,7 +288,10 @@ function Topbar() {
 
       <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2">
         <div
-          onMouseEnter={() => setOpen(true)}
+          onMouseEnter={() => {
+            if (!canExpand) return
+            setOpen(true)
+          }}
           onMouseLeave={() => setOpen(false)}
           style={{
             width: barWidth,
@@ -252,7 +307,7 @@ function Topbar() {
             <MenuButton
               key={item.text}
               item={item}
-              open={open}
+              open={isExpanded}
               isActive={isActiveSectionMenu(item.sectionId) || isActiveMenu(item.path)}
               onClick={() => handleMenuClick(item)}
             />

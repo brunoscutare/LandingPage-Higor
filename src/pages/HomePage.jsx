@@ -4,6 +4,7 @@ import profilePhoto from '../assets/IMG_4126.PNG'
 import { Check, X } from 'lucide-react'
 import Footer from '../components/Footer.jsx'
 import LocationCard from '../components/LocationCard.jsx'
+import RevealCard from '../components/RevealCard.jsx'
 import SectionMark from '../components/SectionMark.jsx'
 import WhatsAppButton from '../components/WhatsAppButton.jsx'
 import { DESIGN_STYLES as s } from '../constants/designs.js'
@@ -88,8 +89,11 @@ function HomePage() {
 
             <div className={s.heroCta}>
               <WhatsAppButton>Conversar comigo pelo WhatsApp</WhatsAppButton>
-              <p className="max-w-md text-sm leading-7 text-white/58">
-                Quem responde é o próprio psicólogo, no mesmo dia. Você não passa por secretaria nem por fila de triagem.
+              <p className={s.helper}>
+                Quem responde é o próprio psicólogo, no mesmo dia.
+              </p>
+              <p className={s.helper}>
+                Você não passa por secretaria nem por fila de triagem.
               </p>
             </div>
           </div>
@@ -116,9 +120,9 @@ function HomePage() {
 
         <ul className={s.quoteGrid}>
           {RECOGNITION_QUOTES.map((quote) => (
-            <li key={quote} className={`${s.quoteItem} ${s.quoteHover}`}>
+            <RevealCard as="li" key={quote} className={`${s.quoteItem} ${s.quoteHover}`}>
               “{quote}”
-            </li>
+            </RevealCard>
           ))}
         </ul>
 
@@ -139,14 +143,7 @@ function HomePage() {
 
         <div className={`mt-8 max-w-3xl space-y-6 ${s.body}`}>
           <p>
-            A dor não é produzida no lugar onde você a sente. Ela é produzida pelo sistema nervoso, que decide o tempo todo o
-            quanto aquele sinal importa. E essa decisão sofre influência de sono, medo, atenção, expectativa, histórico e do
-            que aquele movimento significou para você antes.
-          </p>
-          <p>
-            Nada disso quer dizer que a dor é imaginada. Quer dizer que existem partes do quadro que remédio e fisioterapia
-            não alcançam sozinhos, porque não são partes do tecido: são o medo de piorar, a desconfiança no próprio corpo, o
-            abandono das atividades que sustentavam sua rotina, a sensação de ter perdido quem você era.
+            Um psicólogo no tratamento da dor ajuda a trabalhar fatores que influenciam a percepção da dor, como medo, sono, atenção, expectativas e experiências anteriores. Isso não significa que a dor seja “imaginação”, mas que o tratamento também precisa considerar os impactos emocionais e comportamentais da dor, como medo de se movimentar, perda de confiança e afastamento da rotina.
           </p>
           <p>É nessa parte que eu trabalho, junto do restante do tratamento.</p>
         </div>
@@ -155,12 +152,12 @@ function HomePage() {
 
         <ul className={s.practicalGrid}>
           {PRACTICAL_CHANGES.map((item) => (
-            <li key={item} className={s.practicalItem}>
+            <RevealCard as="li" key={item} className={s.practicalItem}>
               <span className={s.practicalCheck} aria-hidden="true">
                 <Check size={13} strokeWidth={2.75} />
               </span>
               <p className={s.practicalText}>{item}</p>
-            </li>
+            </RevealCard>
           ))}
         </ul>
       </SectionShell>
@@ -170,13 +167,13 @@ function HomePage() {
 
         <ol className={s.stepList}>
           {HOW_IT_WORKS_STEPS.map((step, index) => (
-            <li key={step.title} className={`${s.stepItem} ${s.quoteHover}`}>
+            <RevealCard as="li" key={step.title} className={`${s.stepItem} ${s.quoteHover}`}>
               <span className="text-sm font-medium uppercase tracking-[0.25em] text-[var(--color-accent)]">{index + 1}.</span>
               <div>
                 <h3 className="text-xl font-medium leading-8 text-white">{step.title}</h3>
                 <p className={`mt-3 max-w-3xl ${s.body}`}>{step.text}</p>
               </div>
-            </li>
+            </RevealCard>
           ))}
         </ol>
 
@@ -228,7 +225,7 @@ function HomePage() {
 
         <ul className={s.denyGrid}>
           {WHAT_WONT_HAPPEN.map((item, index) => (
-            <li key={item} className={s.denyItem}>
+            <RevealCard as="li" key={item} className={s.denyItem}>
               <div className={s.denyRail}>
                 <span className={s.denyMark} aria-hidden="true">
                   <X size={14} strokeWidth={2.5} />
@@ -238,7 +235,7 @@ function HomePage() {
                 ) : null}
               </div>
               <p className={s.denyText}>{item}</p>
-            </li>
+            </RevealCard>
           ))}
         </ul>
       </SectionShell>
@@ -261,13 +258,15 @@ function HomePage() {
 
             <div className="mt-10 flex flex-col items-start gap-4">
               <WhatsAppButton>Me contar seu caso pelo WhatsApp</WhatsAppButton>
-              <p className="max-w-md text-sm leading-7 text-white/58">
+              <p className={s.helper}>
                 Quem responde sou eu, no mesmo dia. A partir da conversa a gente combina o horário.
               </p>
             </div>
           </div>
 
-          <LocationCard />
+          <RevealCard>
+            <LocationCard />
+          </RevealCard>
         </div>
       </SectionShell>
 

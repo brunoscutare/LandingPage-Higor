@@ -86,3 +86,16 @@ section[id] {
   --color-surface: #262019;
   --color-section-mark: #e8cfa8;
 }
+
+@media (max-width: 767px) {
+  .card.card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .card.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
