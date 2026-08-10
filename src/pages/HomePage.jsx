@@ -1,5 +1,6 @@
 import heroPhoto from '../assets/IMG_2681.PNG'
 import profilePhoto from '../assets/IMG_4126.PNG'
+import { Check, X } from 'lucide-react'
 import Footer from '../components/Footer.jsx'
 import LocationCard from '../components/LocationCard.jsx'
 import SectionMark from '../components/SectionMark.jsx'
@@ -110,8 +111,11 @@ function HomePage() {
 
         <ul className={s.practicalGrid}>
           {PRACTICAL_CHANGES.map((item) => (
-            <li key={item} className={`${s.practicalItem} ${s.lineHover}`}>
-              {item}
+            <li key={item} className={s.practicalItem}>
+              <span className={s.practicalCheck} aria-hidden="true">
+                <Check size={13} strokeWidth={2.75} />
+              </span>
+              <p className={s.practicalText}>{item}</p>
             </li>
           ))}
         </ul>
@@ -178,10 +182,18 @@ function HomePage() {
       <SectionShell id="nao-acontece" sectionClass={s.section} mark="wave" tone="green">
         <h2 className={s.heading}>O que não vai acontecer aqui</h2>
 
-        <ul className={`mt-10 max-w-3xl space-y-5`}>
-          {WHAT_WONT_HAPPEN.map((item) => (
-            <li key={item} className={`${s.denyItem} ${s.lineHover}`}>
-              {item}
+        <ul className={s.denyGrid}>
+          {WHAT_WONT_HAPPEN.map((item, index) => (
+            <li key={item} className={s.denyItem}>
+              <div className={s.denyRail}>
+                <span className={s.denyMark} aria-hidden="true">
+                  <X size={14} strokeWidth={2.5} />
+                </span>
+                {index < WHAT_WONT_HAPPEN.length - 1 ? (
+                  <span className={s.denyConnector} aria-hidden="true" />
+                ) : null}
+              </div>
+              <p className={s.denyText}>{item}</p>
             </li>
           ))}
         </ul>
