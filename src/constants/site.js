@@ -8,87 +8,78 @@ export const PHONE_DISPLAY = '(16) 99747-7753'
 export const INSTAGRAM_HANDLE = '@higorjoiosopsi'
 export const INSTAGRAM_URL = 'https://instagram.com/higorjoiosopsi'
 
-export const ADDRESS_STREET = 'R. Voluntários da Pátria, 2427'
-export const ADDRESS_DETAILS = 'Centro · Araraquara/SP · 14801-320'
-export const ADDRESS_QUERY = `${ADDRESS_STREET}, ${ADDRESS_DETAILS.replace(/ · /g, ', ')}`
-export const MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&output=embed`
-export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_QUERY)}`
-
 export const RECOGNITION_QUOTES = [
-  'Já fiz todos os exames e não deu nada.',
-  'Às vezes sinto que ninguém acredita em mim.',
-  'Não sou mais a mesma pessoa desde que a dor começou.',
-  'A dor atrapalha eu conviver com as outras pessoas.',
+  'Todo mundo me pergunta o que eu vou fazer da vida, e eu não tenho resposta.',
+  'Eu sei fazer tudo que preciso fazer. Só não sei mais por quê.',
+  'Desde que perdi aquilo, não sei mais quem eu sou sem isso.',
+  'Eu continuo funcionando. Só não sinto mais que sou eu quem está fazendo isso.',
 ]
 
 export const PRACTICAL_CHANGES = [
-  'Você deixa de decidir sua semana pela previsão do que a dor vai fazer',
-  'O corpo volta a ser algo em que você confia, dentro dos limites que existem',
-  'Os dias ruins deixam de ser um começo de desespero e voltam a ser dias ruins',
-  'Você consegue explicar para as pessoas em volta o que está acontecendo, e para você mesmo antes disso',
+  'Você para de esperar alguém te dizer quem deveria ser',
+  'Os dias ruins deixam de ser prova de que algo está errado com você',
+  'Você consegue nomear o que está sentindo, pra você mesmo antes de qualquer outra pessoa',
+  'O luto deixa de ter prazo pra acabar, e vira parte de como você segue',
 ]
 
 export const HOW_IT_WORKS_STEPS = [
   {
-    title: 'Começamos pelo histórico da dor.',
-    text: 'A primeira parte do trabalho é uma anamnese focada na sua dor: quando começou, o que já foi tentado, o que muda, o que você passou a evitar, o que aquilo tirou de você. Muita gente nunca contou essa história inteira para ninguém, porque cada consulta pede só um pedaço dela.',
+    title: 'Começamos pelo que te trouxe até aqui',
+    text: 'A primeira parte do trabalho é uma anamnese ampla da sua história: o que mudou, o que você parou de fazer, o que perdeu, o que ainda não decidiu. Muita gente nunca contou essa história inteira pra ninguém, porque cada conversa pede só um pedaço dela.',
   },
   {
-    title: 'Trabalhamos o que aparece ali.',
-    text: 'A partir desse histórico, lapidamos o que vai surgindo: medo, limitação, culpa, irritação, o que mudou nas relações, o que você deixou de fazer e por quê. O foco é entender o momento do seu corpo e reconstruir a confiança em si.',
+    title: 'Trabalhamos o que aparece',
+    text: 'A partir desse histórico, lapidamos o que vai surgindo: medo, culpa, o que mudou nas relações, o que você deixou de fazer e por quê. O foco é entender o momento que você está vivendo e reconstruir a confiança em quem você é.',
   },
   {
-    title: 'Recriamos a rotina.',
-    text: 'Não a rotina que você tinha antes, e sim uma que caiba no corpo de agora e ainda tenha sentido para você. É a parte mais lenta e a que mais muda o dia a dia.',
+    title: 'Reconstruímos o chão',
+    text: 'Não a vida que você tinha antes, e sim uma que caiba em quem você é agora. É a parte mais lenta e a que mais muda o dia a dia.',
   },
 ]
 
 export const WHAT_WONT_HAPPEN = [
-  'Ninguém vai te dizer que é da sua cabeça.',
-  'Não vou te pedir para pensar positivo.',
-  'Não vou prometer que a dor acaba, nem colocar prazo em nada.',
-  'Não vou sugerir que você pare tratamento médico nenhum.',
-  'E você não vai precisar provar sua dor para mim. Eu acredito em você desde a primeira sessão.',
+  'Ninguém vai te dizer quem você deveria ser.',
+  'Não vou te dar uma resposta pronta pra sua pergunta.',
+  'Não vou tratar seu luto como algo que tem prazo pra acabar.',
+  'Não vou te dizer que existe uma versão "certa" de você pra chegar.',
+  'E você não vai precisar ter um motivo grande o suficiente pra estar aqui. Eu acredito que isso já basta desde a primeira sessão.',
 ]
 
 export const FAQ_ITEMS = [
   {
-    question: 'Psicólogo vai tirar minha dor?',
+    question: 'Psicólogo vai me dizer quem eu sou?',
     answer: [
-      'Não é assim que funciona, e quem promete isso está te enganando.',
-      'O que a psicologia trabalha é a relação entre você e a dor: o medo, a evitação, o sono, a rotina perdida, o que você acredita que o seu corpo aguenta. Isso interfere na intensidade do que você sente e muda bastante o tamanho que a dor ocupa no seu dia.',
+      'Não é assim que funciona, e quem promete isso está te enganando. O trabalho é te ajudar a descobrir isso, não te entregar pronto.',
     ],
   },
   {
     question: 'Já contei minha história mil vezes e nada mudou.',
     answer: [
-      'Provavelmente você contou em pedaços, em consultas de quinze minutos, para responder o que cada profissional precisava saber.',
-      'Aqui a história inteira é o ponto de partida do trabalho, não uma introdução antes do assunto principal.',
+      'Provavelmente você contou em pedaços, pra responder o que cada pessoa ou situação pedia. Aqui a história inteira é o ponto de partida do trabalho, não uma introdução antes do assunto principal.',
     ],
   },
   {
-    question: 'Eu já faço tratamento médico. Isso não é uma coisa a mais para gastar?',
+    question: 'Terapia existencial não é só ficar filosofando sem rumo?',
     answer: [
-      'É uma pergunta justa. A questão não é somar mais um tratamento, e sim atacar a parte do quadro que os outros não alcançam.',
+      'É uma pergunta justa.  Não é filosofia abstrata, é olhar pra escolhas concretas da sua vida: por que você evita uma decisão, por que sente que vive a vida de outra pessoa.',
       'Se depois da primeira conversa você achar que não é o seu caso, eu mesmo te digo, e ainda posso te indicar outro caminho.',
     ],
   },
   {
-    question: 'Preciso ter diagnóstico fechado?',
+    question: 'Preciso ter um motivo grande pra procurar terapia?',
     answer: [
-      'Não. Muita gente chega justamente sem nome para o que sente, e isso costuma ser parte do sofrimento.',
+      'Não. Muita gente chega sem um nome pro que sente, e isso já costuma ser parte do que traz sofrimento.',
     ],
   },
   {
     question: 'Quanto tempo leva?',
     answer: [
-      'Depende do caso, e eu prefiro combinar isso com você em vez de dar um número aqui.',
-      'Alguns tratamentos são planejados com tempo definido desde o começo. Outros ficam abertos e revisamos juntos.',
+      'Depende do caso, e eu prefiro combinar isso com você em vez de dar um número aqui. Alguns tratamentos são planejados com tempo definido desde o começo. Outros ficam abertos e revisamos juntos.',
     ],
   },
   {
-    question: 'Atende só quem tem dor?',
-    answer: ['Não. Atendo também pessoas em luto e em outros momentos difíceis.'],
+    question: 'Atende só quem está de luto?',
+    answer: ['Não. Atendo também quem está perdido sem saber exatamente por quê.'],
   },
   {
     question: 'Como funciona o pagamento?',
